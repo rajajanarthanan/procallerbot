@@ -21,6 +21,10 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <uses-permission
         android:name="android.permission.USE_FINGERPRINT"
@@ -45,6 +49,9 @@
         android:localeConfig="@xml/locale_config"
         android:roundIcon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
+
+
+
 
         <activity
             android:name=".activities.SplashActivity"

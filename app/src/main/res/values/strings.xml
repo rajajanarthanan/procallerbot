@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="profinix_service_description">Background service for Profinix</string>
+    <string name="profinix_service_label">Profinix Service</string>
     <string name="app_launcher_name">Phone</string>
     <string name="default_phone_app_prompt">Please make this app the default Phone app</string>
     <string name="allow_displaying_over_other_apps">Please allow displaying over other apps for reliable behaviour</string>

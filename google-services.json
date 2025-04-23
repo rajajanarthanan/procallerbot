@@ -1,0 +1,271 @@
+{
+  "project_info": {
+    "project_number": "893369469150",
+    "firebase_url": "https://profinixtechnologies-pr75-default-rtdb.firebaseio.com",
+    "project_id": "profinixtechnologies-pr75",
+    "storage_bucket": "profinixtechnologies-pr75.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893369469150:android:75a86e6eb35e2788a3da4f",
+        "android_client_info": {
+          "package_name": "com.cloudprofinix.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAemHdMhstxoJk5r1q7zC_wqzOG52vwSm0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "893369469150-0g5ini56ck43405t00q2388lcreqdob6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.testcloudfirestore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893369469150:android:ae65bebc02087ddfa3da4f",
+        "android_client_info": {
+          "package_name": "com.grinch.rivo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAemHdMhstxoJk5r1q7zC_wqzOG52vwSm0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "893369469150-0g5ini56ck43405t00q2388lcreqdob6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.testcloudfirestore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893369469150:android:f9d166b63b4d56eba3da4f",
+        "android_client_info": {
+          "package_name": "com.profinix.tech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893369469150-8du3f840hbrrj4vn91fa7v44vrmeild8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.profinix.tech",
+            "certificate_hash": "76ba17a7d7941f5261def0b1783c2af8f32254cd"
+          }
+        },
+        {
+          "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAemHdMhstxoJk5r1q7zC_wqzOG52vwSm0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "893369469150-0g5ini56ck43405t00q2388lcreqdob6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.testcloudfirestore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893369469150:android:033429349d328871a3da4f",
+        "android_client_info": {
+          "package_name": "com.profinix.website"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAemHdMhstxoJk5r1q7zC_wqzOG52vwSm0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "893369469150-0g5ini56ck43405t00q2388lcreqdob6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.testcloudfirestore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893369469150:android:2ec50f26ec4e2a2da3da4f",
+        "android_client_info": {
+          "package_name": "com.testprofinix.tech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAemHdMhstxoJk5r1q7zC_wqzOG52vwSm0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "893369469150-0g5ini56ck43405t00q2388lcreqdob6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.testcloudfirestore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893369469150:android:668d69a532ec75a1a3da4f",
+        "android_client_info": {
+          "package_name": "org.fossify.phone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAemHdMhstxoJk5r1q7zC_wqzOG52vwSm0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "893369469150-0g5ini56ck43405t00q2388lcreqdob6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.testcloudfirestore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893369469150:android:96ffd0b704dc9561a3da4f",
+        "android_client_info": {
+          "package_name": "org.fossify.phone.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAemHdMhstxoJk5r1q7zC_wqzOG52vwSm0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893369469150-4m8888r67t5ft47g6nt6ivikelvksnea.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "893369469150-0g5ini56ck43405t00q2388lcreqdob6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.testcloudfirestore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

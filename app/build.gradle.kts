@@ -1,12 +1,14 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.konan.properties.Properties
 import java.io.FileInputStream
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.detekt)
+    id("com.google.gms.google-services")
 }
 
 val keystorePropertiesFile: File = rootProject.file("keystore.properties")
@@ -81,9 +83,16 @@ android {
         includeInApk = false
     }
 
-    tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = project.libs.versions.app.build.kotlinJVMTarget.get()
+    tasks.withType<KotlinCompile>().configureEach {
+        compilerOptions {
+            val jvmTargetString = project.libs.versions.app.build.kotlinJVMTarget.get()
+            jvmTarget.set(JvmTarget.fromTarget(jvmTargetString))
+        }
     }
+
+//    tasks.withType<KotlinCompile> {
+//        kotlinOptions.jvmTarget = project.libs.versions.app.build.kotlinJVMTarget.get()
+//    }
 
     namespace = libs.versions.app.version.appId.get()
 
@@ -114,4 +123,10 @@ dependencies {
     implementation(libs.eventbus)
     implementation(libs.libphonenumber)
     implementation(libs.geocoder)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.dotenv.java)
+    implementation(libs.firebase.analytics)
+    implementation(libs.okhttp)
 }

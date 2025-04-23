@@ -11,11 +11,13 @@ import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.snackbar.Snackbar
+import io.github.cdimascio.dotenv.Dotenv
 import me.grantland.widget.AutofitHelper
 import org.fossify.commons.dialogs.ChangeViewTypeDialog
 import org.fossify.commons.dialogs.ConfirmationDialog
@@ -40,12 +42,14 @@ import org.fossify.phone.fragments.FavoritesFragment
 import org.fossify.phone.fragments.MyViewPagerFragment
 import org.fossify.phone.fragments.RecentsFragment
 import org.fossify.phone.helpers.OPEN_DIAL_PAD_AT_LAUNCH
+import org.fossify.phone.helpers.ProfinixManager
 import org.fossify.phone.helpers.RecentsHelper
 import org.fossify.phone.helpers.tabsList
 import org.fossify.phone.models.Events
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.io.IOException
 
 class MainActivity : SimpleActivity() {
     private val binding by viewBinding(ActivityMainBinding::inflate)
@@ -60,6 +64,11 @@ class MainActivity : SimpleActivity() {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+
+        val profinixManager: ProfinixManager = ProfinixManager(this)
+
+
         appLaunched(BuildConfig.APPLICATION_ID)
         setupOptionsMenu()
         refreshMenuItems()
