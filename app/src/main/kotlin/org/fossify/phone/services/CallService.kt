@@ -5,6 +5,7 @@ import android.content.Context
 import android.telecom.Call
 import android.telecom.CallAudioState
 import android.telecom.InCallService
+import okhttp3.WebSocket
 import org.fossify.phone.activities.CallActivity
 import org.fossify.phone.extensions.config
 import org.fossify.phone.extensions.isOutgoing
@@ -12,19 +13,55 @@ import org.fossify.phone.extensions.powerManager
 import org.fossify.phone.helpers.CallManager
 import org.fossify.phone.helpers.CallNotificationManager
 import org.fossify.phone.helpers.NoCall
+import org.fossify.phone.helpers.WebSocketRegistry
 import org.fossify.phone.models.Events
 import org.greenrobot.eventbus.EventBus
 
+object ActiveCall{
+    val calls = mutableSetOf<Call>()
+    fun add(call: Call) {
+        this.calls.add(call)
+    }
+    fun endActiveCall() {
+        calls.forEach { it.disconnect() }
+        calls.clear()
+    }
+}
+
+
 class CallService : InCallService() {
+
     private val callNotificationManager by lazy { CallNotificationManager(this) }
 
     private val callListener = object : Call.Callback() {
         override fun onStateChanged(call: Call, state: Int) {
             super.onStateChanged(call, state)
+            val number = call.details.handle?.schemeSpecificPart ?: "unknown"
+            var updateState = ""
+            var updateWs = false
             if (state == Call.STATE_DISCONNECTED || state == Call.STATE_DISCONNECTING) {
+                updateState = "call_disconnected"
+                updateWs=true
                 callNotificationManager.cancelNotification()
             } else {
+                if(state == Call.STATE_ACTIVE){
+                    updateState = "call_connected"
+                    updateWs=true
+                }else if(state == Call.STATE_HOLDING){
+                    updateState = "call_holing"
+                    updateWs=true
+                }
                 callNotificationManager.setupNotification()
+            }
+            if(updateWs){
+                val message = """
+                                {
+                                    "type": "call_state_changed",
+                                    "event": "$updateState",
+                                    "number": "$number"
+                                }
+                            """.trimIndent()
+                WebSocketRegistry.current?.send(message)
             }
         }
     }
@@ -33,6 +70,7 @@ class CallService : InCallService() {
         super.onCallAdded(call)
         CallManager.onCallAdded(call)
         CallManager.inCallService = this
+        ActiveCall.add(call)
         call.registerCallback(callListener)
 
         val isScreenLocked = (getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager).isDeviceLocked

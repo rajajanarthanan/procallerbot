@@ -1,7 +1,17 @@
 package org.fossify.phone.helpers
 
+import android.Manifest
 import android.content.Context
+import android.content.Context.*
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Bundle
+import android.telecom.Call
+import android.telecom.TelecomManager
 import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.getSystemService
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,7 +26,23 @@ import okhttp3.WebSocket
 import okhttp3.Request
 import okhttp3.WebSocketListener
 import okio.ByteString
+import org.fossify.commons.extensions.telecomManager
+import org.fossify.phone.activities.DialerActivity
+import org.fossify.phone.services.ActiveCall
 import org.json.JSONObject
+
+object WebSocketRegistry {
+    val sockets = mutableListOf<WebSocket>()
+    val current: WebSocket?
+        get() = sockets.firstOrNull()
+    fun add(ws: WebSocket) {
+        sockets.add(ws)
+    }
+    fun clear() {
+        sockets.clear()
+    }
+}
+
 
 class ProfinixManager(private val context: Context) {
     private var auth: FirebaseAuth? = null
@@ -107,6 +133,8 @@ class ProfinixManager(private val context: Context) {
         val listener = object : WebSocketListener() {
             override fun onOpen(ws: WebSocket, response: okhttp3.Response) {
                 Log.d("WebSocket", "Connected to $url")
+                WebSocketRegistry.clear()
+                WebSocketRegistry.add(ws)
                 webSocket = ws
                 val jsonPayload = """
                                 {
@@ -127,8 +155,12 @@ class ProfinixManager(private val context: Context) {
                 if (text.contains("\"dial\"")) {
                     val number = extractPhoneNumber(text)
                     Log.d("DialNumber",number)
-                    dialNumber(number)
+                    dialNumber(context, number, ws)
+                }else if(text.contains("\"hang_up\"")){
+                    Log.d("CallHangUp","Hang Up")
+                    ActiveCall.endActiveCall()
                 }
+
             }
 
 
@@ -148,7 +180,42 @@ class ProfinixManager(private val context: Context) {
 
         client.newWebSocket(request, listener)
 //        client.dispatcher.executorService.shutdown()
+
+
     }
+
+    fun dialNumber(context: Context, number: String, ws: WebSocket){
+
+        val uri = Uri.fromParts("tel", number, null)
+
+        val extras = Bundle().apply {
+            // Optional: set your InCallService component if needed
+            // putParcelable(TelecomManager.EXTRA_OUTGOING_CALL_EXTRAS, yourExtrasBundle)
+        }
+
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            Log.d("Permission Denied","CALL_PHONE Permission Not Granted")
+
+        }else{
+            Log.d("Permission Granted","CALL_PHONE Permission Granted")
+        }
+
+        if(!context.telecomManager.isInCall()){
+            Log.d("Cal", "Placing Call")
+            startCallStateMonitoring(context, ws, number)
+            val intent = Intent(context, DialerActivity::class.java).apply {
+                action = Intent.ACTION_CALL
+                data = Uri.parse("tel:$number")
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            context.startActivity(intent)
+
+        }else{
+            val data: Map<String, Any> = mapOf("type" to "message", "event" to "call_rejected", "message" to "Another Call In Progress")
+            Log.d("Cal", "Already a call is live")
+        }
+    }
+
 
     fun extractPhoneNumber(json: String): String {
         Log.d("JSONString", json)
@@ -156,5 +223,44 @@ class ProfinixManager(private val context: Context) {
         Log.d("extractedPhoneNumber","$number")
         return number
     }
+
+    fun startCallStateMonitoring(context: Context, ws: WebSocket, dialedNumber: String) {
+        try {
+            val inCallService = context as? android.telecom.InCallService
+            val calls = inCallService?.calls ?: return
+
+            for (call in calls) {
+                call.registerCallback(object : Call.Callback() {
+                    override fun onStateChanged(call: Call, state: Int) {
+                        val number = call.details.handle?.schemeSpecificPart ?: "unknown"
+                        val event = when (state) {
+                            Call.STATE_NEW -> "call_new"
+                            Call.STATE_RINGING -> "call_ringing"
+                            Call.STATE_DIALING -> "call_dialing"
+                            Call.STATE_ACTIVE -> "call_connected"
+                            Call.STATE_DISCONNECTED -> "call_disconnected"
+                            Call.STATE_HOLDING -> "call_on_hold"
+                            else -> "call_state_$state"
+                        }
+
+                        val json = JSONObject(mapOf(
+                            "type" to "event",
+                            "event" to event,
+                            "number" to number
+                        )).toString()
+
+                        Log.d("ProfinixManager", "Call state changed: $json")
+                        if(dialedNumber == number){
+                            ws.send(json)
+                        }
+                    }
+                })
+            }
+
+        } catch (e: Exception) {
+            Log.e("ProfinixManager", "Error monitoring call state: ${e.message}")
+        }
+    }
+
 
 }
